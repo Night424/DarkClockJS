@@ -1,11 +1,18 @@
 // Func to update clock
 function updateClock() {
     const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
+    let hours = now.getHours();
     const minutes = String(now.getMinutes()).padStart(2, "0");
     const seconds = String(now.getSeconds()).padStart(2, "0");
 
-    const timeString = `${hours}:${minutes}:${seconds}`;
+    const amPm = hours >= 12 ? "PM" : "AM";
+
+    // Convert 24h to 12h format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 should be 12
+    hours = String(hours).padStart(2, "0");
+
+    const timeString = `${hours}:${minutes}:${seconds} ${amPm}`;
     document.getElementById ("clock").textContent = timeString;
 }
 
